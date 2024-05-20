@@ -46,6 +46,11 @@ Inicio de sesión o registro
 Predecir los resultados disponibles
 (Opcional) Visualizar los resultados y los puntajes
 Fundamentos de las Vistas
+
+Version 1.0 de la vista de un user:
+![Flujo](https://github.com/brunovillero/ObligatorioBD2/assets/107601706/95a28d1f-7d29-496a-8d65-7eab54040ea4)
+
+
 Dado que hay dos tipos de usuarios con permisos distintos, al ingresar a la aplicación, según el rol que tengas, ingresarás a las predicciones y resultados de los partidos o a la página para ingresar los resultados de los mismos
 
 Decidimos crear una sola vista para el usuario, en la cual puede ingresar todas sus predicciones y observar los puntajes.
