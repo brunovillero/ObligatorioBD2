@@ -12,9 +12,8 @@ const apiUrl = "/api/v1";
 
 app.get(`${apiUrl}/users`, (req, res) => {
   connection.query(
-    "SELECT email FROM Users WHERE id = 1",
+    "SELECT * FROM Players",
     function (err, rows, fields) {
-      console
       if (err) throw err;
       setTimeout(() => {
         res.json(rows);
