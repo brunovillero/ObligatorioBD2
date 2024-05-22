@@ -5,7 +5,7 @@ const createJugadorTable = `
     CREATE TABLE IF NOT EXISTS Jugador (
         Nombre VARCHAR(255) NOT NULL,
         Usuario VARCHAR(255) NOT NULL,
-        Contraseña VARCHAR(255) NOT NULL,
+        Contrasenia VARCHAR(255) NOT NULL,
         Correo VARCHAR(100) NOT NULL CHECK (Correo LIKE '%_@__%.__%'),
         CI VARCHAR(20) NOT NULL PRIMARY KEY,
         Puntaje INT DEFAULT 0,
