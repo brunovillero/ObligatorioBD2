@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   interface IUser {
-    email: string;
+    Correo: string;
   }
 
   const [users, setUser] = useState<IUser[]>([]);
@@ -30,7 +30,7 @@ function App() {
   return (
     <div className="App">
       <div className='App-border'>
-        {users.map(user => <div key={user.email}>{user.email}</div>)}
+        {users.map(user => <div key={user.Correo}>{user.Correo}</div>)}
       </div>
     </div>
   );
