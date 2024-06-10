@@ -1,10 +1,10 @@
-const db = require('../config/database');
+const db = require("../mysqlConnection");
 
 // Definir la tabla País con su única columna Nombre
 const createPaisTable = `
-    CREATE TABLE IF NOT EXISTS Pais (
-        PaisID INT AUTO_INCREMENT PRIMARY KEY,
-        Nombre VARCHAR(255) NOT NULL
+    CREATE TABLE IF NOT EXISTS Countries (
+        Name VARCHAR(255) NOT NULL,
+        PRIMARY KEY (Name)
     )
 `;
 
