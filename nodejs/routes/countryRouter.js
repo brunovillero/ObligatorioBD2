@@ -4,15 +4,17 @@ const router = express.Router();
 const countriesController = require('../controllers/country_controller');
 
 // Crear un nuevo país
-const createCountry = (req, res) => {
-    const { Name } = req.body;
+async function createCountry(req, res){
+    const namee = req.body.namee
 
     const query = `
-        INSERT INTO Countries (Name)
-        VALUES (?)
+        INSERT INTO Countries (Namee)
+        VALUES (?);
     `;
 
-    db.query(query, [Name], (err, result) => {
+    console.log("creado correctamente. el valor the namee es:" + namee)
+
+    db.query(query, [namee], (err, result) => {
         if (err) {
             console.error('Error creating country:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -35,10 +37,10 @@ const getAllCountries = (req, res) => {
 
 // Obtener un país por nombre
 const getCountryByName = (req, res) => {
-    const { Name } = req.params;
-    const query = 'SELECT * FROM Countries WHERE Name = ?';
+    const { Namee } = req.params;
+    const query = 'SELECT * FROM Countries WHERE Namee = ?';
 
-    db.query(query, [Name], (err, result) => {
+    db.query(query, [Namee], (err, result) => {
         if (err) {
             console.error('Error getting country:', err);
             return res.status(500).json({ message: 'Internal server error' });

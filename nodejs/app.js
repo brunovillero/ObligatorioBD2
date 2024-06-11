@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require('body-parser');
 const playerRouter = require('./routes/playerRouter')
 const countryRouter = require('./routes/countryRouter')
 const predictionRouter = require('./routes/predictionRouter')
@@ -13,10 +12,9 @@ const port = 3008;
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
-app.use(bodyParser);
 app.use(cors());
 
-const apiUrl = "/api/v1";
+/*const apiUrl = "/api/v1";
 
 app.get(`${apiUrl}/users`, (req, res) => {
   db.query(
@@ -28,7 +26,7 @@ app.get(`${apiUrl}/users`, (req, res) => {
       }, 500);
     }
   );
-});
+});*/
 
 app.use(playerRouter);
 app.use(countryRouter);

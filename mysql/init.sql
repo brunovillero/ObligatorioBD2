@@ -4,7 +4,7 @@ USE mydb;
 
 CREATE TABLE Players (
     ID INT NOT NULL,
-    Name VARCHAR(100),
+    Namee VARCHAR(100),
     Username VARCHAR(50),
     Password VARCHAR(255),
     Email VARCHAR(100) NOT NULL,
@@ -26,8 +26,8 @@ CREATE TABLE Predictions (
 
 
 CREATE TABLE Countries (
-    Name VARCHAR(100) NOT NULL,
-    PRIMARY KEY (Name)
+    Namee VARCHAR(100) NOT NULL,
+    PRIMARY KEY (Namee)
 );
 
 CREATE TABLE Fixture (
@@ -35,7 +35,7 @@ CREATE TABLE Fixture (
     PRIMARY KEY (Stage)
 );
 
-CREATE TABLE Matches (
+/*CREATE TABLE Matches (
         Id INT AUTO_INCREMENT PRIMARY KEY,
         Stadium VARCHAR(255),
         Country1 INT NOT NULL,
@@ -43,10 +43,10 @@ CREATE TABLE Matches (
         Country1Score INT DEFAULT NULL,
         Country2Score INT DEFAULT NULL,
         Date DATETIME NOT NULL,
-        FOREIGN KEY (country1) REFERENCES Country(Name),
-        FOREIGN KEY (country2) REFERENCES Country(Name)
-    );
+        FOREIGN KEY (country1) REFERENCES Country(Namee),
+        FOREIGN KEY (country2) REFERENCES Country(Namee)
+    );*/
 
 
-INSERT INTO Players(ID, Name, Username, Password, Email, Points, Major, Champion, SubChampion) VALUES (18458650, 'Elpri Mero', 'Mr1', 'contraseniasegura123', 'jhonny@gmail.com',
+INSERT INTO Players(ID, Namee, Username, Password, Email, Points, Major, Champion, SubChampion) VALUES (18458650, 'Elpri Mero', 'Mr1', 'contraseniasegura123', 'jhonny@gmail.com',
 8, 'ciencias empresariales', 3, 9);
