@@ -5,14 +5,14 @@ const router = express.Router();
 
 // Create a new fixture
 const createFixture = (req, res) => {
-    const { stage } = req.body;
+    const { etapa } = req.body;
 
     const query = `
-        INSERT INTO Fixture (stage)
+        INSERT INTO fixtures (etapa)
         VALUES (?)
     `;
 
-    db.query(query, [stage], (err, result) => {
+    db.query(query, [etapa], (err, result) => {
         if (err) {
             console.error('Error creating fixture:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -23,7 +23,7 @@ const createFixture = (req, res) => {
 
 // Get all fixtures
 const getAllFixtures = (req, res) => {
-    const query = 'SELECT * FROM Fixture';
+    const query = 'SELECT * FROM fixtures';
     db.query(query, (err, results) => {
         if (err) {
             console.error('Error getting fixtures:', err);
@@ -35,10 +35,10 @@ const getAllFixtures = (req, res) => {
 
 // Get a fixture by stage
 const getFixtureByStage = (req, res) => {
-    const { stage } = req.params;
-    const query = 'SELECT * FROM Fixture WHERE stage = ?';
+    const { etapa } = req.params;
+    const query = 'SELECT * FROM fixtures WHERE etapa = ?';
 
-    db.query(query, [stage], (err, result) => {
+    db.query(query, [etapa], (err, result) => {
         if (err) {
             console.error('Error getting fixture:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -49,16 +49,16 @@ const getFixtureByStage = (req, res) => {
 
 // Update a fixture
 const updateFixture = (req, res) => {
-    const { stage } = req.params;
-    const { newStage } = req.body;
+    const { nuevaEtapa } = req.body;
+    const { etapa } = req.params;
 
     const query = `
-        UPDATE Fixture
-        SET stage = ?
-        WHERE stage = ?
+        UPDATE fixtures
+        SET etapa = ?
+        WHERE etapa = ?
     `;
 
-    db.query(query, [newStage, stage], (err, result) => {
+    db.query(query, [nuevaEtapa, etapa], (err, result) => {
         if (err) {
             console.error('Error updating fixture:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -69,10 +69,10 @@ const updateFixture = (req, res) => {
 
 // Delete a fixture
 const deleteFixture = (req, res) => {
-    const { stage } = req.params;
-    const query = 'DELETE FROM Fixture WHERE stage = ?';
+    const { etapa } = req.params;
+    const query = 'DELETE FROM fixtures WHERE etapa = ?';
 
-    db.query(query, [stage], (err, result) => {
+    db.query(query, [etapa], (err, result) => {
         if (err) {
             console.error('Error deleting fixture:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -84,18 +84,18 @@ const deleteFixture = (req, res) => {
 
 
 // Create a new fixture
-router.post('/fixtures', createFixture);
+router.post('/fixtures', createFixture);//FUNCIONA
 
 // Get all fixtures
-router.get('/fixtures', getAllFixtures);
+router.get('/fixtures', getAllFixtures);//FUNCIONA
 
 // Get a fixture by stage
-router.get('/fixtures/:stage', getFixtureByStage);
+router.get('/fixtures/:etapa', getFixtureByStage);//FUNCIONA
 
 // Update a fixture
-router.put('/fixtures/:stage', updateFixture);
+router.put('/fixtures/:etapa', updateFixture);//FUNCIONA
 
 // Delete a fixture
-router.delete('/fixtures/:stage', deleteFixture);
+router.delete('/fixtures/:etapa', deleteFixture);//FUNCIONA
 
 module.exports = router;

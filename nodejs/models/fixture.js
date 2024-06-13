@@ -2,8 +2,8 @@ const db = require("../mysqlConnection");
 
 // Definir la tabla Stages con su única columna Nombre
 const createFixtureTable = `
-    CREATE TABLE IF NOT EXISTS Fixtures (
-        Stage VARCHAR(100) NOT NULL,
+    CREATE TABLE IF NOT EXISTS fixtures (
+        etapa VARCHAR(100) NOT NULL,
         PRIMARY KEY (Stage)
     )
 `;

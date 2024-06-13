@@ -1,31 +1,30 @@
 const db = require("../mysqlConnection");
 const express = require('express');
 const router = express.Router();
-const countriesController = require('../controllers/country_controller');
 
 // Crear un nuevo país
-async function createCountry(req, res){
-    const namee = req.body.namee
+async function createPais(req, res){
+    
+    const nombre = req.body.nombre
 
     const query = `
-        INSERT INTO Countries (Namee)
+        INSERT INTO paises (nombre)
         VALUES (?);
     `;
+    console.log("pais creado correctamente. el valor de pais es:" + nombre)
 
-    console.log("creado correctamente. el valor the namee es:" + namee)
-
-    db.query(query, [namee], (err, result) => {
+    db.query(query, [nombre], (err, result) => {
         if (err) {
-            console.error('Error creating country:', err);
+            console.error('Error creating pais:', err);
             return res.status(500).json({ message: 'Internal server error' });
         }
-        res.status(201).json({ message: 'Country created successfully' });
+        res.status(201).json({ message: 'pais created successfully' });
     });
 };
 
 // Obtener todos los países
-const getAllCountries = (req, res) => {
-    const query = 'SELECT * FROM Countries;';
+const getAllPaises = (req, res) => {
+    const query = 'SELECT * FROM paises;';
     db.query(query, (err, results) => {
         if (err) {
             console.error('Error getting countries:', err);
@@ -36,11 +35,11 @@ const getAllCountries = (req, res) => {
 };
 
 // Obtener un país por nombre
-const getCountryByName = (req, res) => {
-    const { Namee } = req.params;
-    const query = 'SELECT * FROM Countries WHERE Namee = ?';
+const getPaisByName = (req, res) => {
+    const { nombre } = req.params;
+    const query = 'SELECT * FROM paises WHERE nombre = ?;';
 
-    db.query(query, [Namee], (err, result) => {
+    db.query(query, [nombre], (err, result) => {
         if (err) {
             console.error('Error getting country:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -52,18 +51,19 @@ const getCountryByName = (req, res) => {
     });
 };
 
-// Actualizar un país
-const updateCountry = (req, res) => {
-    const { Name } = req.params;
-    const { newName } = req.body;
+// Actualizar un país. Se pone en la ruta el nombre del pais a cambiar y se escribe el nuevo nombre en el json
+const updatePais = (req, res) => {
+    
+    const { nuevoNombre } = req.body;
+    const { nombre } = req.params;
 
     const query = `
-        UPDATE Countries
-        SET Name = ?
-        WHERE Name = ?
+        UPDATE paises
+        SET nombre = ?
+        WHERE nombre = ?
     `;
 
-    db.query(query, [newName, Name], (err, result) => {
+    db.query(query, [nuevoNombre, nombre], (err, result) => {
         if (err) {
             console.error('Error updating country:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -71,16 +71,17 @@ const updateCountry = (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Country not found' });
         }
+        console.log("salio bien")
         res.status(200).json({ message: 'Country updated successfully' });
     });
 };
 
 // Eliminar un país
-const deleteCountry = (req, res) => {
-    const { Name } = req.params;
-    const query = 'DELETE FROM Countries WHERE Name = ?';
+const deletePais = (req, res) => {
+    const { nombre } = req.params;
+    const query = 'DELETE FROM paises WHERE nombre = ?';
 
-    db.query(query, [Name], (err, result) => {
+    db.query(query, [nombre], (err, result) => {
         if (err) {
             console.error('Error deleting country:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -96,18 +97,18 @@ const deleteCountry = (req, res) => {
 
 
 // Crear un nuevo país
-router.post('/countries', createCountry);
+router.post('/countries', createPais); //FUNCIONA
 
 // Obtener todos los países
-router.get('/countries', getAllCountries);
+router.get('/countries', getAllPaises);//FUNCIONA
 
 // Obtener un país por nombre
-router.get('/countries/:Name', getCountryByName);
+router.get('/countries/:nombre', getPaisByName);//FUNCIONA
 
 // Actualizar un país
-router.put('/countries/:Name', updateCountry);
+router.put('/countries/:nombre', updatePais);//FUNCIONA
 
 // Eliminar un país
-router.delete('/countries/:Name', deleteCountry);
+router.delete('/countries/:nombre', deletePais);//FUNCIONA
 
 module.exports = router;

@@ -2,9 +2,9 @@ const db = require("../mysqlConnection");
 
 // Definir la tabla País con su única columna Nombre
 const createPaisTable = `
-    CREATE TABLE IF NOT EXISTS Countries (
-        Namee VARCHAR(255) NOT NULL,
-        PRIMARY KEY (Namee)
+    CREATE TABLE IF NOT EXISTS paises (
+        nombre VARCHAR(255) NOT NULL,
+        PRIMARY KEY (nombre)
     )
 `;
 
