@@ -2,37 +2,37 @@ CREATE DATABASE IF NOT EXISTS mydb;
 
 USE mydb;
 
-CREATE TABLE Players (
-    ID INT NOT NULL,
-    Namee VARCHAR(100),
-    Username VARCHAR(50),
-    Password VARCHAR(255),
-    Email VARCHAR(100) NOT NULL,
-    Points INT DEFAULT 0,
-    Major VARCHAR(100) NOT NULL,
-    Champion INT,
-    SubChampion INT,
-    PRIMARY KEY (ID),
-    CHECK (Email REGEXP '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+CREATE TABLE jugadores (
+    id INT NOT NULL,
+    nombre VARCHAR(100),
+    usuario VARCHAR(50),
+    contrasenia VARCHAR(255),
+    mail VARCHAR(100) NOT NULL,
+    puntaje INT DEFAULT 0,
+    carrera VARCHAR(100) NOT NULL,
+    campeon INT,
+    subcampeon INT,
+    PRIMARY KEY (id),
+    CHECK (mail REGEXP '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
 );
 
-CREATE TABLE Predictions (
-    ID INT NOT NULL,
-    CountryScore1 INT NOT NULL,
-    CountryScore2 INT NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (ID) REFERENCES Players(ID)
+CREATE TABLE predicciones (
+    id INT NOT NULL,
+    puntosPais1 INT NOT NULL,
+    puntosPais2 INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (id) REFERENCES jugadores(id)
 );
 
 
-CREATE TABLE Countries (
-    Namee VARCHAR(100) NOT NULL,
-    PRIMARY KEY (Namee)
+CREATE TABLE paises (
+    nombre VARCHAR(100) NOT NULL,
+    PRIMARY KEY (nombre)
 );
 
-CREATE TABLE Fixture (
-    Stage VARCHAR(100) NOT NULL,
-    PRIMARY KEY (Stage)
+CREATE TABLE fixtures (
+    etapa VARCHAR(100) NOT NULL,
+    PRIMARY KEY (etapa)
 );
 
 /*CREATE TABLE Matches (
@@ -48,5 +48,5 @@ CREATE TABLE Fixture (
     );*/
 
 
-INSERT INTO Players(ID, Namee, Username, Password, Email, Points, Major, Champion, SubChampion) VALUES (18458650, 'Elpri Mero', 'Mr1', 'contraseniasegura123', 'jhonny@gmail.com',
+INSERT INTO jugadores(id, nombre, usuario, contrasenia, mail, puntaje, carrera, campeon, subcampeon) VALUES (18458650, 'Elpri Mero', 'Mr1', 'contraseniasegura123', 'jhonny@gmail.com',
 8, 'ciencias empresariales', 3, 9);
