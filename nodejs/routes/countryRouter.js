@@ -105,9 +105,6 @@ router.get('/countries', getAllPaises);//FUNCIONA
 // Obtener un país por nombre
 router.get('/countries/:nombre', getPaisByName);//FUNCIONA
 
-// Actualizar un país
-router.put('/countries/:nombre', updatePais);//FUNCIONA
-
 // Eliminar un país
 router.delete('/countries/:nombre', deletePais);//FUNCIONA
 

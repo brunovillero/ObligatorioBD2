@@ -3,16 +3,16 @@ const express = require('express');
 const router = express.Router();
 
 // Create a new player
-const createPlayer = (req, res) => {
-    const { Name, Username, Password, Email, ID, Major, Champion, SubChampion } = req.body;
-    const Points = 0; // Default value for Puntaje
+const createJugador = (req, res) => {
+    const { id, nombre, usuario, contrasena, mail, carrera, campeon, subcampeon } = req.body;
+    const puntaje = 0; // Default value for Puntaje
 
     const query = `
-        INSERT INTO Players (Name, Username, Password, Email, ID, Points, Major, Champion, SubChampion)
+        INSERT INTO jugadores (id, nombre, usuario, contrasena, mail, puntaje, carrera, campeon, subcampeon)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
 
-    db.query(query, [Name, Username, Password, Email, ID, Points, Major, Champion, SubChampion], (err, result) => {
+    db.query(query, [id, nombre, usuario, contrasena, mail, puntaje, carrera, campeon, subcampeon], (err, result) => {
         if (err) {
             console.error('Error creating player:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -22,8 +22,8 @@ const createPlayer = (req, res) => {
 };
 
 // Get all players
-const getAllPlayers = (req, res) => {
-    const query = 'SELECT * FROM Players';
+const getAllJugadores = (req, res) => {
+    const query = 'SELECT * FROM jugadores';
     db.query(query, (err, results) => {
         if (err) {
             console.error('Error getting players:', err);
@@ -34,11 +34,11 @@ const getAllPlayers = (req, res) => {
 };
 
 // Get a player by CI
-const getPlayerById = (req, res) => {
-    const { CI } = req.params;
-    const query = 'SELECT * FROM Players WHERE CI = ?';
+const getJugadorById = (req, res) => {
+    const { id } = req.params;
+    const query = 'SELECT * FROM jugadores WHERE id = ?';
 
-    db.query(query, [CI], (err, result) => {
+    db.query(query, [id], (err, result) => {
         if (err) {
             console.error('Error getting player:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -48,19 +48,19 @@ const getPlayerById = (req, res) => {
 };
 
 // Update a player
-const updatePlayer = (req, res) => {
-    const { CI } = req.params;
-    const { Name, Username, Password, Email, Points, Major, Champion, SubChampion } = req.body;
+const updateJugador = (req, res) => {
+    const { id } = req.params;
+    const { nombre, usuario, contrasena, mail, puntaje, carrera, campeon, subcampeon } = req.body;
 
     const query = `
-        UPDATE Players
-        SET Name = ?, Username = ?, Password = ?, Email = ?, Points = ?, Major = ?, Champion = ?, SubChampion = ?
-        WHERE ID = ?
+        UPDATE jugadores
+        SET nombre = ?, usuario = ?, contrasena = ?, mail = ?, puntaje = ?, carrera = ?, campeon = ?, subcampeon = ?
+        WHERE id = ?
     `;
 
-    db.query(query, [Name, Username, Password, Email, Points, Major, Champion, SubChampion, ID], (err, result) => {
+    db.query(query, [nombre, usuario, contrasena, mail, puntaje, carrera, campeon, subcampeon, id], (err, result) => {
         if (err) {
-            console.error('Error updating player:', err);
+            console.error('Error updating jugadores:', err);
             return res.status(500).json({ message: 'Internal server error' });
         }
         res.status(200).json({ message: 'Player updated successfully' });
@@ -69,10 +69,10 @@ const updatePlayer = (req, res) => {
 
 // Delete a player
 const deletePlayer = (req, res) => {
-    const { ID } = req.params;
-    const query = 'DELETE FROM Players WHERE ID = ?';
+    const { id } = req.params;
+    const query = 'DELETE FROM jugadores WHERE id = ?';
 
-    db.query(query, [CI], (err, result) => {
+    db.query(query, [id], (err, result) => {
         if (err) {
             console.error('Error deleting player:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -83,18 +83,18 @@ const deletePlayer = (req, res) => {
 
 
 // Crear un nuevo jugador
-router.post('/players', createPlayer);
+router.post('/players', createJugador); //FUNCIONA
 
 // Obtener todos los jugadores
-router.get('/players', getAllPlayers);
+router.get('/players', getAllJugadores); //FUNCIONA
 
 // Obtener un jugador por ID
-router.get('/players/:ID', getPlayerById);
+router.get('/players/:id', getJugadorById);//FUNCIONA
 
 // Actualizar un jugador
-router.put('/players/:ID', updatePlayer);
+router.put('/players/:id', updateJugador);//FUNCIONA
 
 // Eliminar un jugador
-router.delete('/players/:ID', deletePlayer);
+router.delete('/players/:id', deletePlayer);//FUNCIONA
 
 module.exports = router;

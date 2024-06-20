@@ -2,51 +2,56 @@ CREATE DATABASE IF NOT EXISTS mydb;
 
 USE mydb;
 
-CREATE TABLE jugadores (
-    id INT NOT NULL,
-    nombre VARCHAR(100),
-    usuario VARCHAR(50),
-    contrasenia VARCHAR(255),
-    mail VARCHAR(100) NOT NULL,
-    puntaje INT DEFAULT 0,
-    carrera VARCHAR(100) NOT NULL,
-    campeon INT,
-    subcampeon INT,
-    PRIMARY KEY (id),
-    CHECK (mail REGEXP '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
-);
-
-CREATE TABLE predicciones (
-    id INT NOT NULL,
-    puntosPais1 INT NOT NULL,
-    puntosPais2 INT NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES jugadores(id)
-);
-
-
 CREATE TABLE paises (
     nombre VARCHAR(100) NOT NULL,
     PRIMARY KEY (nombre)
 );
+
+CREATE TABLE jugadores (
+    id VARCHAR(8) NOT NULL,
+    nombre VARCHAR(100),
+    usuario VARCHAR(50),
+    contrasena VARCHAR(255),
+    mail VARCHAR(100) NOT NULL,
+    puntaje INT DEFAULT 0,
+    carrera VARCHAR(100) NOT NULL,
+    campeon VARCHAR(100) NOT NULL,
+    subcampeon VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (campeon) REFERENCES paises(nombre),
+    FOREIGN KEY (subcampeon) REFERENCES paises(nombre),
+    CHECK (mail REGEXP '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$')
+);
+
+CREATE TABLE partidos (
+        id INT AUTO_INCREMENT,
+        estadio VARCHAR(255),
+        pais1 VARCHAR(255) NOT NULL,
+        pais2 VARCHAR(255) NOT NULL,
+        puntosPais1 INT DEFAULT NULL,
+        puntosPais2 INT DEFAULT NULL,
+        fecha DATETIME NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (pais1) REFERENCES paises(nombre),
+        FOREIGN KEY (pais2) REFERENCES paises(nombre)
+    );
+
+CREATE TABLE predicciones (
+    id INT AUTO_INCREMENT,
+    idPersona VARCHAR(8) NOT NULL,
+    puntosPais1 INT NOT NULL,
+    puntosPais2 INT NOT NULL,
+    idPartido INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idPersona) REFERENCES jugadores(id),
+    FOREIGN KEY (idPartido) REFERENCES partidos(id)
+);
+
 
 CREATE TABLE fixtures (
     etapa VARCHAR(100) NOT NULL,
     PRIMARY KEY (etapa)
 );
 
-/*CREATE TABLE Matches (
-        Id INT AUTO_INCREMENT PRIMARY KEY,
-        Stadium VARCHAR(255),
-        Country1 INT NOT NULL,
-        Country2 INT NOT NULL,
-        Country1Score INT DEFAULT NULL,
-        Country2Score INT DEFAULT NULL,
-        Date DATETIME NOT NULL,
-        FOREIGN KEY (country1) REFERENCES Country(Namee),
-        FOREIGN KEY (country2) REFERENCES Country(Namee)
-    );*/
 
 
-INSERT INTO jugadores(id, nombre, usuario, contrasenia, mail, puntaje, carrera, campeon, subcampeon) VALUES (18458650, 'Elpri Mero', 'Mr1', 'contraseniasegura123', 'jhonny@gmail.com',
-8, 'ciencias empresariales', 3, 9);

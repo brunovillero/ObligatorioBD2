@@ -1,6 +1,6 @@
 const express = require("express");
 const playerRouter = require('./routes/playerRouter')
-const countryRouter = require('./routes/paisRouter')
+const countryRouter = require('./routes/countryRouter')
 const predictionRouter = require('./routes/predictionRouter')
 const fixture = require('./routes/fixtureRouter')
 const matchRouter = require('./routes/matchRouter')

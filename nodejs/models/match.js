@@ -1,21 +1,21 @@
 const db = require("../mysqlConnection");
 
 // Create the Match table if it doesn't exist
-const createMatchTable = `
-    CREATE TABLE IF NOT EXISTS Matches (
-        ID INT AUTO_INCREMENT PRIMARY KEY,
-        Stadium VARCHAR(255),
-        Country1 INT NOT NULL,
-        Country2 INT NOT NULL,
-        Country1Score INT DEFAULT NULL,
-        Country2Score INT DEFAULT NULL,
-        Date DATETIME NOT NULL,
-        FOREIGN KEY (country1) REFERENCES Country(Name),
-        FOREIGN KEY (country2) REFERENCES Country(Name)
+const createPartidoTable = `
+    CREATE TABLE IF NOT EXISTS partidos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        estadio VARCHAR(255) NOT NULL,
+        pais1 VARCHAR(255) NOT NULL,
+        pais2 VARCHAR(255) NOT NULL,
+        puntosPais1 INT DEFAULT NULL,
+        puntosPais2 INT DEFAULT NULL,
+        fecha DATETIME NOT NULL,
+        FOREIGN KEY (pais1) REFERENCES paises(nombre),
+        FOREIGN KEY (pais2) REFERENCES paises(nombre)
     )
 `;
 
-db.query(createMatchTable, (err, results) => {
+db.query(createPartidoTable, (err, results) => {
     if (err) {
         console.error('Error creating Match table:', err);
     } else {

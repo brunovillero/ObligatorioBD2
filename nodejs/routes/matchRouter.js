@@ -3,15 +3,15 @@ const express = require('express');
 const router = express.Router();
 
 // Create a new match
-const createMatch = (req, res) => {
-    const { stadium, country1ID, country2ID, country1Score, country2Score, date } = req.body;
+const createPartido = (req, res) => {
+    const { estadio, pais1, pais2, fecha } = req.body;
 
     const query = `
-        INSERT INTO Match (Stadium, Country1, Country2, Country1Score, Country2Score, Date)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT INTO partidos (estadio, pais1, pais2, fecha)
+        VALUES (?, ?, ?, ?)
     `;
 
-    db.query(query, [stadium, country1ID, country2ID, country1Score, country2Score, date], (err, result) => {
+    db.query(query, [estadio, pais1, pais2, fecha], (err, result) => {
         if (err) {
             console.error('Error creating match:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -21,8 +21,8 @@ const createMatch = (req, res) => {
 };
 
 // Get all matches
-const getAllMatches = (req, res) => {
-    const query = 'SELECT * FROM Match';
+const getAllPartidos = (req, res) => {
+    const query = 'SELECT * FROM partidos';
     db.query(query, (err, results) => {
         if (err) {
             console.error('Error getting matches:', err);
@@ -33,9 +33,9 @@ const getAllMatches = (req, res) => {
 };
 
 // Get a match by ID
-const getMatchById = (req, res) => {
+const getPartidoById = (req, res) => {
     const { id } = req.params;
-    const query = 'SELECT * FROM Match WHERE ID = ?';
+    const query = 'SELECT * FROM partidos WHERE id = ?';
 
     db.query(query, [id], (err, result) => {
         if (err) {
@@ -47,17 +47,17 @@ const getMatchById = (req, res) => {
 };
 
 // Update a match
-const updateMatch = (req, res) => {
+const updatePartido = (req, res) => {
     const { id } = req.params;
-    const { stadium, country1, country2, country1Score, country2Score, date } = req.body;
+    const { estadio, pais1, pais2, puntosPais1, puntosPais2, fecha } = req.body;
 
     const query = `
-        UPDATE Match
-        SET Stadium = ?, Country1 = ?, Country2 = ?, Country1Score = ?, Country2Score = ?, Date = ?
+        UPDATE partidos
+        SET estadio = ?, pais1 = ?, pais2 = ?, puntosPais1 = ?, puntosPais2 = ?, fecha = ?
         WHERE id = ?
     `;
 
-    db.query(query, [stadium, country1, country2, country1Score, country2Score, date, id], (err, result) => {
+    db.query(query, [estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, id], (err, result) => {
         if (err) {
             console.error('Error updating match:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -67,9 +67,9 @@ const updateMatch = (req, res) => {
 };
 
 // Delete a match
-const deleteMatch = (req, res) => {
+const deletePartido = (req, res) => {
     const { id } = req.params;
-    const query = 'DELETE FROM Match WHERE ID = ?';
+    const query = 'DELETE FROM partidos WHERE id = ?';
 
     db.query(query, [id], (err, result) => {
         if (err) {
@@ -82,10 +82,10 @@ const deleteMatch = (req, res) => {
 
 
 
-router.post('/matches', createMatch);
-router.get('/matches', getAllMatches);
-router.get('/matches/:id', getMatchById);
-router.put('/matches/:id', updateMatch);
-router.delete('/matches/:id', deleteMatch);
+router.post('/matches', createPartido); //FUNCIONA
+router.get('/matches', getAllPartidos); //FUNCIONA
+router.get('/matches/:id', getPartidoById);//FUNCIONA
+router.put('/matches/:id', updatePartido);//FUNCIONA
+router.delete('/matches/:id', deletePartido);//FUNCIONA
 
 module.exports = router;

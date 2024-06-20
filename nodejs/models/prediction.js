@@ -1,17 +1,20 @@
 const db = require("../mysqlConnection");
 
 // Create the prediction table if it doesn't exist
-const createPrediction = `
-    CREATE TABLE IF NOT EXISTS Predictions (
-    ID INT NOT NULL,
-    CountryScore1 INT NOT NULL,
-    CountryScore2 INT NOT NULL,
-    PRIMARY KEY (ID),
-    FOREIGN KEY (ID) REFERENCES Players(ID)
+const createPrediccion = `
+    CREATE TABLE IF NOT EXISTS predicciones (
+    id INT AUTO_INCREMENT,
+    idPersona VARCHAR(8) NOT NULL,
+    puntosPais1 INT NOT NULL,
+    puntosPais2 INT NOT NULL,
+    idPartido INT NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (idPersona) REFERENCES jugadores(id),
+    FOREIGN KEY (idPartido) REFERENCES partidos(id)
     )
 `;
 
-db.query(createPrediction, (err, results) => {
+db.query(createPrediccion, (err, results) => {
     if (err) {
         console.error('Error creating predictions table:', err);
     } else {
