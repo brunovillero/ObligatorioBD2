@@ -7,6 +7,11 @@ CREATE TABLE paises (
     PRIMARY KEY (nombre)
 );
 
+CREATE TABLE fixtures (
+    etapa VARCHAR(100) NOT NULL,
+    PRIMARY KEY (etapa)
+);
+
 CREATE TABLE jugadores (
     id VARCHAR(8) NOT NULL,
     nombre VARCHAR(100),
@@ -31,9 +36,11 @@ CREATE TABLE partidos (
         puntosPais1 INT DEFAULT NULL,
         puntosPais2 INT DEFAULT NULL,
         fecha DATETIME NOT NULL,
+        etapa VARCHAR(100)  NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (pais1) REFERENCES paises(nombre),
-        FOREIGN KEY (pais2) REFERENCES paises(nombre)
+        FOREIGN KEY (pais2) REFERENCES paises(nombre),
+        FOREIGN KEY (etapa) REFERENCES fixtures(etapa)
     );
 
 CREATE TABLE predicciones (
@@ -48,10 +55,8 @@ CREATE TABLE predicciones (
 );
 
 
-CREATE TABLE fixtures (
-    etapa VARCHAR(100) NOT NULL,
-    PRIMARY KEY (etapa)
-);
+
+
 
 
 

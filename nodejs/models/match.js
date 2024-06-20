@@ -10,8 +10,11 @@ const createPartidoTable = `
         puntosPais1 INT DEFAULT NULL,
         puntosPais2 INT DEFAULT NULL,
         fecha DATETIME NOT NULL,
+        etapa VARCHAR(100)  NOT NULL,
         FOREIGN KEY (pais1) REFERENCES paises(nombre),
-        FOREIGN KEY (pais2) REFERENCES paises(nombre)
+        FOREIGN KEY (pais2) REFERENCES paises(nombre),
+        FOREIGN KEY (etapa) REFERENCES fixtures(etapa)
+
     )
 `;
 

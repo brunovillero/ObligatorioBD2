@@ -4,14 +4,14 @@ const router = express.Router();
 
 // Create a new match
 const createPartido = (req, res) => {
-    const { estadio, pais1, pais2, fecha } = req.body;
+    const { estadio, pais1, pais2, fecha, etapa } = req.body;
 
     const query = `
-        INSERT INTO partidos (estadio, pais1, pais2, fecha)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO partidos (estadio, pais1, pais2, fecha, etapa)
+        VALUES (?, ?, ?, ?, ?)
     `;
 
-    db.query(query, [estadio, pais1, pais2, fecha], (err, result) => {
+    db.query(query, [estadio, pais1, pais2, fecha, etapa], (err, result) => {
         if (err) {
             console.error('Error creating match:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -49,15 +49,15 @@ const getPartidoById = (req, res) => {
 // Update a match
 const updatePartido = (req, res) => {
     const { id } = req.params;
-    const { estadio, pais1, pais2, puntosPais1, puntosPais2, fecha } = req.body;
+    const { estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, etapa } = req.body;
 
     const query = `
         UPDATE partidos
-        SET estadio = ?, pais1 = ?, pais2 = ?, puntosPais1 = ?, puntosPais2 = ?, fecha = ?
+        SET estadio = ?, pais1 = ?, pais2 = ?, puntosPais1 = ?, puntosPais2 = ?, fecha = ?, etapa = ?
         WHERE id = ?
     `;
 
-    db.query(query, [estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, id], (err, result) => {
+    db.query(query, [estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, id, etapa], (err, result) => {
         if (err) {
             console.error('Error updating match:', err);
             return res.status(500).json({ message: 'Internal server error' });
