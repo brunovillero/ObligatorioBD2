@@ -84,6 +84,8 @@ INSERT INTO fixtures (etapa) VALUES
 ('Cuartos de Final'),
 ('Fase de Grupos');
 
+ALTER TABLE jugadores ADD COLUMN rol VARCHAR(20) DEFAULT 'user';
+
 -- Insercion de partidos
 INSERT INTO partidos (etapa, estadio, pais1, pais2, puntosPais1, puntosPais2, fecha) VALUES 
 ('Final', 'Mercedes-Benz Stadium', 'Uruguay', 'Argentina', NULL, NULL, '2024-07-15 18:00:00'),
@@ -118,3 +120,4 @@ INSERT INTO partidos (etapa, estadio, pais1, pais2, puntosPais1, puntosPais2, fe
 ('Fase de Grupos', 'Bank of America Stadium', 'Costa Rica', 'Perú', NULL, NULL, '2024-07-11 18:00:00'),
 ('Fase de Grupos', 'Children\'s Mercy Park', 'Paraguay', 'Bolivia', NULL, NULL, '2024-07-12 18:00:00'),
 ('Fase de Grupos', 'Inter&Co Stadium', 'Jamaica', 'Panamá', NULL, NULL, '2024-07-13 18:00:00');
+

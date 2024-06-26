@@ -1,6 +1,7 @@
 const db = require("../mysqlConnection");
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middleware/authMiddleware');
 
 // Create a new match
 const createPartido = (req, res) => {
@@ -82,10 +83,10 @@ const deletePartido = (req, res) => {
 
 
 
-router.post('/matches', createPartido); //FUNCIONA
-router.get('/matches', getAllPartidos); //FUNCIONA
-router.get('/matches/:id', getPartidoById);//FUNCIONA
-router.put('/matches/:id', updatePartido);//FUNCIONA
-router.delete('/matches/:id', deletePartido);//FUNCIONA
+router.post('/matches', authMiddleware('admin'), createPartido);
+router.put('/matches/:id', authMiddleware('admin'), updatePartido);
+router.get('/matches', getAllPartidos);
+router.get('/matches/:id', getPartidoById);
+router.delete('/matches/:id', deletePartido);
 
 module.exports = router;

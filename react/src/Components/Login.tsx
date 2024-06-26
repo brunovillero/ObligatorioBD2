@@ -23,6 +23,11 @@ export const Login = () => {
       const response  = await login(loginData.mail, loginData.contrasena);
       localStorage.setItem("token", response.token);
       toast("Login successful");
+      console.log(response.role)
+      if(response.role === "admin"){
+        navigate("/admin");
+        return;
+      }
       navigate("/predicciones");
     } catch (err) {
       console.error(err);
