@@ -1,21 +1,33 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../Services/AuthService";
 import "./Login.css";
+import { toast } from "react-toastify";
 
 interface ILogin {
-  email: string;
-  password: string;
+  mail: string;
+  contrasena: string;
 }
 
 export const Login = () => {
-  const [login, setLogin] = useState<ILogin>({
-    email: "",
-    password: "",
+  const [loginData, setLoginData] = useState<ILogin>({
+    mail: "",
+    contrasena: "",
   });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(login);
+    try {
+      const response  = await login(loginData.mail, loginData.contrasena);
+      localStorage.setItem("token", response.token);
+      toast("Login successful");
+      navigate("/predicciones");
+    } catch (err) {
+      console.error(err);
+      alert("Error logging in");
+    }
   };
 
   return (
@@ -24,29 +36,37 @@ export const Login = () => {
         <h1 className="login-title">Ingresar</h1>
       </div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
+        <label htmlFor="mail">Email</label>
         <div className="login-input">
           <input
-            id="email"
+            id="mail"
             type="email"
             placeholder="Email"
-            value={login.email}
-            onChange={(e) => setLogin({ ...login, email: e.target.value })}
+            value={loginData.mail}
+            onChange={(e) =>
+              setLoginData({ ...loginData, mail: e.target.value })
+            }
           />
         </div>
-        <label htmlFor="password">Contraseña</label>
+        <label htmlFor="contrasena">Contraseña</label>
         <div className="login-input">
           <input
-            id="password"
+            id="contrasena"
             type="password"
             placeholder="Contraseña"
-            value={login.password}
-            onChange={(e) => setLogin({ ...login, password: e.target.value })}
+            value={loginData.contrasena}
+            onChange={(e) =>
+              setLoginData({ ...loginData, contrasena: e.target.value })
+            }
           />
         </div>
         <button type="submit">Ingresar</button>
-        <Link to="/register"  className="my-link">Registrarse</Link>
+        <Link to="/register" className="my-link">
+          Registrarse
+        </Link>
       </form>
     </div>
   );
 };
+
+export default Login;

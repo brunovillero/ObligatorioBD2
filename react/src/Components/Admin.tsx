@@ -1,5 +1,8 @@
-import React, { useState } from "react";
-import './Admin.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import AdminService from "../Services/AdminService";
+import { logout } from "../Services/AuthService";
+import "./Admin.css";
 
 interface Partido {
   id: number;
@@ -10,73 +13,149 @@ interface Partido {
   fecha: string;
   hora: string;
   estadio: string;
+  etapa: string;
 }
 
 const Admin: React.FC = () => {
-  const [partidos, setPartidos] = useState<Partido[]>([
-    { id: 1, equipo1: 'Argentina', equipo2: 'Chile', verdaderoResultadoEquipo1: null, verdaderoResultadoEquipo2: null, fecha: '24/06', hora: '18:00', estadio: 'Estadio Monumental' },
-    { id: 2, equipo1: 'Uruguay', equipo2: 'Paraguay', verdaderoResultadoEquipo1: null, verdaderoResultadoEquipo2: null, fecha: '24/06', hora: '21:00', estadio: 'Estadio Centenario' },
-    { id: 24, equipo1: 'Brasil', equipo2: 'Colombia', verdaderoResultadoEquipo1: null, verdaderoResultadoEquipo2: null, fecha: '29/06', hora: '21:00', estadio: 'Estadio Maracaná' },
-  ]);
+  const [partidos, setPartidos] = useState<Partido[]>([]);
+  const navigate = useNavigate();
 
-  const handleResultadoChange = (id: number, equipo: string, resultado: number) => {
-    setPartidos(prevPartidos =>
-      prevPartidos.map(partido =>
+  useEffect(() => {
+    const fetchPartidos = async () => {
+      const adminService = new AdminService();
+      const data = await adminService.getAllPartidos();
+      if (data) {
+        const formattedData = data.map((partido: any) => ({
+          id: partido.id,
+          equipo1: partido.pais1,
+          equipo2: partido.pais2,
+          verdaderoResultadoEquipo1: partido.puntosPais1,
+          verdaderoResultadoEquipo2: partido.puntosPais2,
+          fecha: new Date(partido.fecha).toLocaleDateString("en-CA"),
+          hora: new Date(partido.fecha).toLocaleTimeString("en-GB", {
+            hour12: false,
+          }),
+          estadio: partido.estadio,
+          etapa: partido.etapa,
+        }));
+        setPartidos(formattedData);
+      }
+    };
+
+    fetchPartidos();
+  }, []);
+
+  const handleResultadoChange = (
+    id: number,
+    equipo: string,
+    resultado: number
+  ) => {
+    setPartidos((prevPartidos) =>
+      prevPartidos.map((partido) =>
         partido.id === id ? { ...partido, [equipo]: resultado } : partido
       )
     );
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Resultados reales enviados:', partidos);
-    // Aquí puedes agregar la lógica para enviar los resultados reales a un backend
+  const handleUpdate = async (partido: Partido) => {
+    const adminService = new AdminService();
+    const fechaHora = `${partido.fecha} ${partido.hora}`; // Combina fecha y hora
+    await adminService.updatePartido(
+      partido.id,
+      partido.estadio,
+      partido.equipo1,
+      partido.equipo2,
+      partido.verdaderoResultadoEquipo1!,
+      partido.verdaderoResultadoEquipo2!,
+      fechaHora,
+      partido.etapa
+    );
+    console.log("Resultado actualizado:", partido);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login"); // Redirigir a la página de login después del logout
   };
 
   return (
     <div className="admin">
       <h1>Gestionador de Resultados</h1>
-      <form onSubmit={handleSubmit}>
-        <table className="admin-table">
-          <thead>
-            <tr>
-              <th>Selección 1</th>
-              <th>Resultado 1</th>
-              <th>Selección 2</th>
-              <th>Resultado 2</th>
-              <th>Fecha</th>
-              <th>Hora</th>
-              <th>Estadio</th>
+      <div className="logout-container">
+        <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
+      </div>
+      <table className="admin-table">
+        <thead>
+          <tr>
+            <th>Selección 1</th>
+            <th>Resultado 1</th>
+            <th>Selección 2</th>
+            <th>Resultado 2</th>
+            <th>Fecha</th>
+            <th>Hora</th>
+            <th>Estadio</th>
+            <th>Etapa</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {partidos.map((partido) => (
+            <tr key={partido.id}>
+              <td>{partido.equipo1}</td>
+              <td>
+                <input
+                  type="number"
+                  value={
+                    partido.verdaderoResultadoEquipo1 !== null
+                      ? partido.verdaderoResultadoEquipo1
+                      : ""
+                  }
+                  onChange={(e) =>
+                    handleResultadoChange(
+                      partido.id,
+                      "verdaderoResultadoEquipo1",
+                      parseInt(e.target.value)
+                    )
+                  }
+                />
+              </td>
+              <td>{partido.equipo2}</td>
+              <td>
+                <input
+                  type="number"
+                  value={
+                    partido.verdaderoResultadoEquipo2 !== null
+                      ? partido.verdaderoResultadoEquipo2
+                      : ""
+                  }
+                  onChange={(e) =>
+                    handleResultadoChange(
+                      partido.id,
+                      "verdaderoResultadoEquipo2",
+                      parseInt(e.target.value)
+                    )
+                  }
+                />
+              </td>
+              <td>{partido.fecha}</td>
+              <td>{partido.hora}</td>
+              <td>{partido.estadio}</td>
+              <td>{partido.etapa}</td>
+              <td>
+                <button
+                  type="button"
+                  className="update-button"
+                  onClick={() => handleUpdate(partido)}
+                >
+                  Actualizar
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {partidos.map(partido => (
-              <tr key={partido.id}>
-                <td>{partido.equipo1}</td>
-                <td>
-                  <input
-                    type="number"
-                    value={partido.verdaderoResultadoEquipo1 || ''}
-                    onChange={(e) => handleResultadoChange(partido.id, 'verdaderoResultadoEquipo1', parseInt(e.target.value))}
-                  />
-                </td>
-                <td>{partido.equipo2}</td>
-                <td>
-                  <input
-                    type="number"
-                    value={partido.verdaderoResultadoEquipo2 || ''}
-                    onChange={(e) => handleResultadoChange(partido.id, 'verdaderoResultadoEquipo2', parseInt(e.target.value))}
-                  />
-                </td>
-                <td>{partido.fecha}</td>
-                <td>{partido.hora}</td>
-                <td>{partido.estadio}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <button type="submit" className="submit-button">Guardar Resultados</button>
-      </form>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

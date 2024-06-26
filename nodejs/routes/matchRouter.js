@@ -57,7 +57,7 @@ const updatePartido = (req, res) => {
         WHERE id = ?
     `;
 
-    db.query(query, [estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, id, etapa], (err, result) => {
+    db.query(query, [estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, etapa, id], (err, result) => { 
         if (err) {
             console.error('Error updating match:', err);
             return res.status(500).json({ message: 'Internal server error' });

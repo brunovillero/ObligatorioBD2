@@ -5,11 +5,11 @@ export interface Partido {
   id: number;
   equipo1: string;
   equipo2: string;
-  resultadoEquipo1: number;
-  resultadoEquipo2: number;
+  resultadoEquipo1: number | null;
+  resultadoEquipo2: number | null;
   fase: string;
-  verdaderoResultadoEquipo1: number | null; // Puede ser null hasta que se obtenga del backend
-  verdaderoResultadoEquipo2: number | null; // Puede ser null hasta que se obtenga del backend
+  verdaderoResultadoEquipo1: number | null;
+  verdaderoResultadoEquipo2: number | null;
   fecha: string;
   hora: string;
   estadio: string;
@@ -33,12 +33,16 @@ const PartidoCard: React.FC<PartidoCardProps> = ({
       verdaderoResultadoEquipo1,
       verdaderoResultadoEquipo2,
     } = partido;
+  
     if (
+      resultadoEquipo1 === null ||
+      resultadoEquipo2 === null ||
       verdaderoResultadoEquipo1 === null ||
       verdaderoResultadoEquipo2 === null
     ) {
-      return ""; // No hay resultado verdadero aún
+      return ""; 
     }
+  
     if (
       resultadoEquipo1 === verdaderoResultadoEquipo1 &&
       resultadoEquipo2 === verdaderoResultadoEquipo2
@@ -66,7 +70,11 @@ const PartidoCard: React.FC<PartidoCardProps> = ({
             <div className="input-container">
               <input
                 type="number"
-                value={partido.resultadoEquipo1}
+                value={
+                  partido.resultadoEquipo1 !== null
+                    ? partido.resultadoEquipo1
+                    : ""
+                }
                 onChange={(e) =>
                   onResultadoChange(
                     partido.id,
@@ -84,7 +92,11 @@ const PartidoCard: React.FC<PartidoCardProps> = ({
             <div className="input-container">
               <input
                 type="number"
-                value={partido.resultadoEquipo2}
+                value={
+                  partido.resultadoEquipo2 !== null
+                    ? partido.resultadoEquipo2
+                    : ""
+                }
                 onChange={(e) =>
                   onResultadoChange(
                     partido.id,

@@ -14,7 +14,6 @@ CREATE TABLE fixtures (
     PRIMARY KEY (etapa)
 );
 
--- Crear tabla jugadores
 CREATE TABLE jugadores (
     id VARCHAR(8) NOT NULL,
     nombre VARCHAR(100),
