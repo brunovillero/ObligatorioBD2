@@ -61,7 +61,9 @@ const Predicciones: React.FC = () => {
       const jugadorService = new JugadorService();
       const token = localStorage.getItem("token"); 
       if (token) {
+
         const decoded = jwtDecode<{ id: string }>(token); 
+        console.log("decoded", decoded)
         const data = await jugadorService.getJugadorById(decoded.id); 
         if (data) {
           setJugador({

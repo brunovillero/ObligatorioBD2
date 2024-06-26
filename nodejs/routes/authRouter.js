@@ -29,7 +29,9 @@ router.post('/register', (req, res) => {
         return res.status(500).json({ message: 'Internal server error' });
       }
 
-      const token = generateAuthToken(result);
+      const token = generateAuthToken({
+        id,
+      });
 
       res.status(201).json({ message: 'User registered successfully', token });
     });
