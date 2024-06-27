@@ -97,15 +97,15 @@ const deletePais = (req, res) => {
 
 
 // Crear un nuevo país
-router.post('/countries', createPais); //FUNCIONA
+router.post('/countries', createPais); 
 
 // Obtener todos los países
-router.get('/countries', getAllPaises);//FUNCIONA
+router.get('/countries', getAllPaises);
 
 // Obtener un país por nombre
-router.get('/countries/:nombre', getPaisByName);//FUNCIONA
+router.get('/countries/:nombre', getPaisByName);
 
 // Eliminar un país
-router.delete('/countries/:nombre', deletePais);//FUNCIONA
+router.delete('/countries/:nombre', deletePais);
 
 module.exports = router;

@@ -1,0 +1,113 @@
+.partido-card {
+    background-color: #1e3c72; /* Fondo azul oscuro */
+    color: black; /* Letra negra para mejor visibilidad */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+  
+  .partido-card.green {
+    background-color: #00cc00; /* Verde fuerte */
+  }
+  
+  .partido-card.orange {
+    background-color: #ff9933; /* Naranja */
+  }
+  
+  .partido-card.red {
+    background-color: #b30000; /* Rojo fuerte tirando a bordo */
+  }
+  
+  .partido-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .partido-header {
+    margin-bottom: 10px;
+  }
+  
+  .fase {
+    font-size: 0.9rem;
+    font-weight: bold;
+  }
+  
+  .partido-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px; /* Agrega espacio entre los equipos y el VS */
+  }
+  
+  .equipo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .input-container {
+    position: relative;
+  }
+  
+  .input-goles {
+    width: 40px;
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: white;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+    -moz-appearance: textfield; /* Firefox */
+  }
+  
+  .input-goles::-webkit-outer-spin-button,
+  .input-goles::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Chrome, Safari, Edge, Opera */
+  }
+  
+  .input-goles:focus {
+    border-color: #45a049;
+  }
+  
+  .vs {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center; /* Alinea verticalmente el texto "VS" */
+  }
+  
+  .partido-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .partido-footer span {
+    font-size: 0.9rem;
+    color: #000000;
+  }
+  
+  .submit-button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+  

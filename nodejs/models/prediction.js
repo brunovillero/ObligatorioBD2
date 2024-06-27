@@ -5,8 +5,8 @@ const createPrediccion = `
     CREATE TABLE IF NOT EXISTS predicciones (
     id INT AUTO_INCREMENT,
     idPersona VARCHAR(8) NOT NULL,
-    puntosPais1 INT NOT NULL,
-    puntosPais2 INT NOT NULL,
+    golesPais1 INT NOT NULL,
+    golesPais2 INT NOT NULL,
     idPartido INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (idPersona) REFERENCES jugadores(id),

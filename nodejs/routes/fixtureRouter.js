@@ -84,18 +84,18 @@ const deleteFixture = (req, res) => {
 
 
 // Create a new fixture
-router.post('/fixtures', createFixture);//FUNCIONA
+router.post('/fixtures', createFixture);
 
 // Get all fixtures
-router.get('/fixtures', getAllFixtures);//FUNCIONA
+router.get('/fixtures', getAllFixtures);
 
 // Get a fixture by stage
-router.get('/fixtures/:etapa', getFixtureByStage);//FUNCIONA
+router.get('/fixtures/:etapa', getFixtureByStage);
 
 // Update a fixture
-router.put('/fixtures/:etapa', updateFixture);//FUNCIONA
+router.put('/fixtures/:etapa', updateFixture);
 
 // Delete a fixture
-router.delete('/fixtures/:etapa', deleteFixture);//FUNCIONA
+router.delete('/fixtures/:etapa', deleteFixture);
 
 module.exports = router;

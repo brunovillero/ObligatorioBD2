@@ -1,6 +1,7 @@
 const db = require("../mysqlConnection");
 const express = require('express');
 const router = express.Router();
+const authMiddleware = require('../middleware/authMiddleware');
 
 // Create a new match
 const createPartido = (req, res) => {
@@ -49,15 +50,15 @@ const getPartidoById = (req, res) => {
 // Update a match
 const updatePartido = (req, res) => {
     const { id } = req.params;
-    const { estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, etapa } = req.body;
+    const { estadio, pais1, pais2, golesPais1, golesPais2, fecha, etapa } = req.body;
 
     const query = `
         UPDATE partidos
-        SET estadio = ?, pais1 = ?, pais2 = ?, puntosPais1 = ?, puntosPais2 = ?, fecha = ?, etapa = ?
+        SET estadio = ?, pais1 = ?, pais2 = ?, golesPais1 = ?, golesPais2 = ?, fecha = ?, etapa = ?
         WHERE id = ?
     `;
 
-    db.query(query, [estadio, pais1, pais2, puntosPais1, puntosPais2, fecha, id, etapa], (err, result) => {
+    db.query(query, [estadio, pais1, pais2, golesPais1, golesPais2, fecha, etapa, id], (err, result) => { 
         if (err) {
             console.error('Error updating match:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -82,10 +83,10 @@ const deletePartido = (req, res) => {
 
 
 
-router.post('/matches', createPartido); //FUNCIONA
-router.get('/matches', getAllPartidos); //FUNCIONA
-router.get('/matches/:id', getPartidoById);//FUNCIONA
-router.put('/matches/:id', updatePartido);//FUNCIONA
-router.delete('/matches/:id', deletePartido);//FUNCIONA
+router.post('/matches', authMiddleware('admin'), createPartido);
+router.put('/matches/:id', authMiddleware('admin'), updatePartido);
+router.get('/matches', getAllPartidos);
+router.get('/matches/:id', getPartidoById);
+router.delete('/matches/:id', deletePartido);
 
 module.exports = router;

@@ -1,0 +1,90 @@
+.admin {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #004d99;
+  }
+  
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .admin-table th, .admin-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .admin-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    background-color: white;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s;
+    -moz-appearance: textfield; /* Firefox */
+  }
+  
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Chrome, Safari, Edge, Opera */
+  }
+  
+  input[type="number"]:focus {
+    border-color: #45a049;
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+
+  .logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .logout-button:hover {
+    background-color: #d32f2f; 
+  }
+  
+  .logout-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
