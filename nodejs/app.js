@@ -27,5 +27,6 @@ app.use(countryRouter);
 app.use(predictionRouter);
 app.use(fixtureRouter);
 app.use(matchRouter);
+app.use(scoreRouter);
 
 app.listen(port, () => console.log(`Node API live at http://localhost:${port}`));

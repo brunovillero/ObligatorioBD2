@@ -7,6 +7,7 @@ import PartidoCard from "./PartidoCard";
 import { logout } from "../Services/AuthService";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import ScoreService from "../Services/ScoreServices";
 
 interface Partido {
   id: number;
@@ -59,11 +60,10 @@ const Predicciones: React.FC = () => {
 
     const fetchJugador = async () => {
       const jugadorService = new JugadorService();
-      const token = localStorage.getItem("token"); 
+      const token = localStorage.getItem("token");
       if (token) {
-
-        const decoded = jwtDecode<{ id: string }>(token); 
-        const data = await jugadorService.getJugadorById(decoded.id); 
+        const decoded = jwtDecode<{ id: string }>(token);
+        const data = await jugadorService.getJugadorById(decoded.id);
         if (data) {
           setJugador({
             id: data.id,
@@ -72,6 +72,14 @@ const Predicciones: React.FC = () => {
             campeon: data.campeon,
             subcampeon: data.subcampeon,
           });
+
+          const scoreService = new ScoreService();
+          const score = await scoreService.getScore(data.id);
+          if (score !== null) {
+            setJugador((prevJugador) =>
+              prevJugador ? { ...prevJugador, puntajeActual: score } : null
+            );
+          }
         }
       }
     };
@@ -113,6 +121,14 @@ const Predicciones: React.FC = () => {
           p.id === partido.id ? { ...p, ...resultadoReal } : p
         )
       );
+
+      const scoreService = new ScoreService();
+      const score = await scoreService.getScore(jugador.id);
+      if (score !== null) {
+        setJugador((prevJugador) =>
+          prevJugador ? { ...prevJugador, puntajeActual: score } : null
+        );
+      }
     }
   };
 
