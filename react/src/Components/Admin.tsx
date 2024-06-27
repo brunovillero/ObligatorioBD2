@@ -29,8 +29,8 @@ const Admin: React.FC = () => {
           id: partido.id,
           equipo1: partido.pais1,
           equipo2: partido.pais2,
-          verdaderoResultadoEquipo1: partido.puntosPais1,
-          verdaderoResultadoEquipo2: partido.puntosPais2,
+          verdaderoResultadoEquipo1: partido.golesPais1,
+          verdaderoResultadoEquipo2: partido.golesPais2,
           fecha: new Date(partido.fecha).toLocaleDateString("en-CA"),
           hora: new Date(partido.fecha).toLocaleTimeString("en-GB", {
             hour12: false,

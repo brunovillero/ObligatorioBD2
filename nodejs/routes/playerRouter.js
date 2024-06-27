@@ -83,18 +83,17 @@ const deletePlayer = (req, res) => {
 
 
 // Crear un nuevo jugador
-router.post('/players', createJugador); //FUNCIONA
+router.post('/players', createJugador);
 
 // Obtener todos los jugadores
-router.get('/players', getAllJugadores); //FUNCIONA
+router.get('/players', getAllJugadores); 
 
 // Obtener un jugador por ID
-router.get('/players/:id', getJugadorById);//FUNCIONA
-
+router.get('/players/:id', getJugadorById);
 // Actualizar un jugador
-router.put('/players/:id', updateJugador);//FUNCIONA
+router.put('/players/:id', updateJugador);
 
 // Eliminar un jugador
-router.delete('/players/:id', deletePlayer);//FUNCIONA
+router.delete('/players/:id', deletePlayer);
 
 module.exports = router;

@@ -36,8 +36,8 @@ CREATE TABLE partidos (
         estadio VARCHAR(255),
         pais1 VARCHAR(255) NOT NULL,
         pais2 VARCHAR(255) NOT NULL,
-        puntosPais1 INT DEFAULT NULL,
-        puntosPais2 INT DEFAULT NULL,
+        golesPais1 INT DEFAULT NULL,
+        golesPais2 INT DEFAULT NULL,
         fecha DATETIME NOT NULL,
         etapa VARCHAR(100)  NOT NULL,
         PRIMARY KEY (id),
@@ -49,8 +49,8 @@ CREATE TABLE partidos (
 CREATE TABLE predicciones (
     id INT AUTO_INCREMENT,
     idPersona VARCHAR(8) NOT NULL,
-    puntosPais1 INT NOT NULL,
-    puntosPais2 INT NOT NULL,
+    golesPais1 INT NOT NULL,
+    golesPais2 INT NOT NULL,
     idPartido INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (idPersona) REFERENCES jugadores(id),
@@ -84,18 +84,20 @@ INSERT INTO fixtures (etapa) VALUES
 ('Cuartos de Final'),
 ('Fase de Grupos');
 
+-- Add role to jugadores
 ALTER TABLE jugadores ADD COLUMN rol VARCHAR(20) DEFAULT 'user';
 
 -- Insercion de partidos
-INSERT INTO partidos (etapa, estadio, pais1, pais2, puntosPais1, puntosPais2, fecha) VALUES 
+-- Ya pensados en la Copa America 2024
+INSERT INTO partidos (etapa, estadio, pais1, pais2, golesPais1, golesPais2, fecha) VALUES 
 ('Final', 'Mercedes-Benz Stadium', 'Uruguay', 'Argentina', NULL, NULL, '2024-07-15 18:00:00'),
+('Tercer y Cuarto Puesto', 'Hard Rock Stadium', 'Estados Unidos', 'Colombia', NULL, NULL, '2024-07-13 18:00:00'),
 ('Semifinal', 'Allegiant Stadium', 'Uruguay', 'Colombia', NULL, NULL, '2024-07-10 18:00:00'),
 ('Semifinal', 'AT&T Stadium', 'Argentina', 'Estados Unidos', NULL, NULL, '2024-07-11 18:00:00'),
 ('Cuartos de Final', 'Bank of America Stadium', 'Uruguay', 'Brasil', NULL, NULL, '2024-07-05 18:00:00'),
 ('Cuartos de Final', 'Children\'s Mercy Park', 'Argentina', 'Canadá', NULL, NULL, '2024-07-06 18:00:00'),
 ('Cuartos de Final', 'Inter&Co Stadium', 'Estados Unidos', 'México', NULL, NULL, '2024-07-07 18:00:00'),
 ('Cuartos de Final', 'GEHA Field at Arrowhead Stadium', 'Colombia', 'Venezuela', NULL, NULL, '2024-07-08 18:00:00'),
-('Tercer y Cuarto Puesto', 'Hard Rock Stadium', 'Estados Unidos', 'Colombia', NULL, NULL, '2024-07-13 18:00:00'),
 ('Fase de Grupos', 'Levi\'s Stadium', 'Uruguay', 'Argentina', NULL, NULL, '2024-06-20 18:00:00'),
 ('Fase de Grupos', 'MetLife Stadium', 'Estados Unidos', 'Colombia', NULL, NULL, '2024-06-21 18:00:00'),
 ('Fase de Grupos', 'NRG Stadium', 'Venezuela', 'México', NULL, NULL, '2024-06-22 18:00:00'),

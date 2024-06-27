@@ -16,8 +16,8 @@ class AdminService {
     estadio: string,
     pais1: string,
     pais2: string,
-    puntosPais1: number,
-    puntosPais2: number,
+    golesPais1: number,
+    golesPais2: number,
     fechaHora: string,
     etapa: string
   ): Promise<any> {
@@ -26,8 +26,8 @@ class AdminService {
         estadio,
         pais1,
         pais2,
-        puntosPais1,
-        puntosPais2,
+        golesPais1,
+        golesPais2,
         fecha: fechaHora,
         etapa
       });

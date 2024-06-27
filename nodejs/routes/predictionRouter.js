@@ -4,14 +4,14 @@ const router = express.Router();
 
 // Crear una nueva predicción
 const createPrediccion = (req, res) => {
-    const { idPersona, puntosPais1, puntosPais2, idPartido } = req.body;
+    const { idPersona, golesPais1, golesPais2, idPartido } = req.body;
 
     const query = `
-        INSERT INTO predicciones (idPersona, puntosPais1, puntosPais2, idPartido)
+        INSERT INTO predicciones (idPersona, golesPais1, golesPais2, idPartido)
         VALUES (?, ?, ?, ?)
     `;
 
-    db.query(query, [idPersona, puntosPais1, puntosPais2,idPartido], (err, result) => {
+    db.query(query, [idPersona, golesPais1, golesPais2,idPartido], (err, result) => {
         if (err) {
             console.error('Error creating prediction:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -52,15 +52,15 @@ const getPrediccionById = (req, res) => {
 // Actualizar una predicción
 const updatePrediccion = (req, res) => {
     const { id } = req.params;
-    const { puntosPais1, puntosPais2 } = req.body;
+    const { golesPais1, golesPais2 } = req.body;
 
     const query = `
         UPDATE predicciones
-        SET puntosPais1 = ?, puntosPais2 = ?
+        SET golesPais1 = ?, golesPais2 = ?
         WHERE id = ?
     `;
 
-    db.query(query, [puntosPais1, puntosPais2, id], (err, result) => {
+    db.query(query, [golesPais1, golesPais2, id], (err, result) => {
         if (err) {
             console.error('Error updating prediction:', err);
             return res.status(500).json({ message: 'Internal server error' });
@@ -94,18 +94,18 @@ const deletePrediccion = (req, res) => {
 
 
 // Crear una nueva predicción
-router.post('/predictions', createPrediccion); //FUNCIONA
+router.post('/predictions', createPrediccion); 
 
 // Obtener todas las predicciones
-router.get('/predictions', getAllPredicciones);//FUNCIONA
+router.get('/predictions', getAllPredicciones);
 
 // Obtener una predicción por ID de jugador
-router.get('/predictions/:id', getPrediccionById);//FUNCIONA
+router.get('/predictions/:id', getPrediccionById);
 
 // Actualizar una predicción
-router.put('/predictions/:id', updatePrediccion);//FUNCIONA
+router.put('/predictions/:id', updatePrediccion);
 
 // Eliminar una predicción
-router.delete('/predictions/:id', deletePrediccion);//FUNCIONA
+router.delete('/predictions/:id', deletePrediccion);
 
 module.exports = router;

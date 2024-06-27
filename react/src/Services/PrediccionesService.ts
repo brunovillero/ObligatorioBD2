@@ -13,15 +13,15 @@ class PrediccionesService {
 
   async createPrediccion(
     idPersona: string,
-    puntosPais1: number,
-    puntosPais2: number,
+    golesPais1: number,
+    golesPais2: number,
     idPartido: number
   ): Promise<any> {
     try {
       const response = await axios.post("http://localhost:3008/predictions", {
         idPersona,
-        puntosPais1,
-        puntosPais2,
+        golesPais1,
+        golesPais2,
         idPartido,
       });
       if (response.status === 201) {
