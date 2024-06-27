@@ -1,5 +1,6 @@
 Pasos para correr la aplicación:
 
+1)
 
 El primer paso debera ser crear un archivo .env con la siguiente informacion (copiar y pegar)
 
